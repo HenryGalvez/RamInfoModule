@@ -18,8 +18,9 @@ static struct proc_dir_entry *ent;
 static int myread (struct seq_file *buff, void *v){
 
     printk( KERN_DEBUG "read info\n");
+    #define K(x) ((x) << (PAGE_SHIFT - 10))
     si_meminfo(&i);
-    seq_printf(buff,"total de ram: %ld MB\nram libre: %ld MB\nporcentaje en uso: %ld\n", i.totalram/1024, i.freeram/1024, ((i.totalram - i.freeram)*100)/i.totalram);
+    seq_printf(buff,"total de ram: %ld MB\nram libre: %ld MB\nporcentaje en uso: %ld\n", K(i.totalram)/1024, K(i.freeram)/1024, ((i.totalram - i.freeram)*100)/i.totalram);
     
     return 0;
 }
